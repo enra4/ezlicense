@@ -9,9 +9,29 @@ program
 	.option('-a, --author [name]', 'include author (default: steal from package.json)')
 	.parse(process.argv)
 
+let warn = false
+
 if (!program.license) {
-	console.log('  no --license [licenseName] was supplied, pls do something')
-	process.exit()
+	if (fs.existsSync('./package.json')) {
+		const license = require('./package.json').license
+		if (license) {
+			program.license = license
+		}
+	} else {
+		console.log('  no --license [licenseName] was supplied and wasnt in ./package.json, pls do something')
+		process.exit()
+	}
+} else {
+	// warn if license is supplied
+	// but is different from ./package.json
+	if (fs.existsSync('./package.json')) {
+		const license = require('./package.json').license
+		if (license) {
+			if (program.license !== license) {
+				warn = true
+			}
+		}
+	}
 }
 
 if (!program.year) {
@@ -24,17 +44,21 @@ if (!program.author) {
 		if (name) {
 			program.author = name
 		} else {
-			console.log('  no --author [name] was supplied and no package.json was found, pls do something')
+			console.log('  no --author [name] was supplied and wasnt in ./package.json, pls do something')
 			process.exit()
 		}
 	} else {
-		console.log('  no --author [name] was supplied and no package.json was found, pls do something')
+		console.log('  no --author [name] was supplied and wasnt in ./package.json, pls do something')
 		process.exit()
 	}
 }
 
-const file = `${__dirname}/licenses/${program.license}.txt`
+const file = `${__dirname}/licenses/${program.license.toLowerCase()}.txt`
 if (fs.existsSync(file)) {
+	if (warn) {
+		console.log('  @WARN license supplied is different from license in ./package.json')
+		console.log(`  will still generate the ${program.license.toUpperCase()} license`)
+	}
 	// place year and name into license
 	// couldnt find out how to do with regex bc i suck
 	let content = fs.readFileSync(file, 'utf8')
