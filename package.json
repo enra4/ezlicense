@@ -1,13 +1,10 @@
 {
   "name": "ezlicense",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "cli tool for generating licenses",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "enra4",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^2.13.0"
   }
