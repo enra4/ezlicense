@@ -12,8 +12,8 @@ program
 let warn = false
 
 if (!program.license) {
-	if (fs.existsSync('./package.json')) {
-		const license = require('./package.json').license
+	if (fs.existsSync(`${process.cwd()}/package.json`)) {
+		const license = require(`${process.cwd()}/package.json`).license
 		if (license) {
 			program.license = license
 		}
@@ -24,8 +24,8 @@ if (!program.license) {
 } else {
 	// warn if license is provided
 	// but is different from ./package.json
-	if (fs.existsSync('./package.json')) {
-		const license = require('./package.json').license
+	if (fs.existsSync(`${process.cwd()}/package.json`)) {
+		const license = require(`${process.cwd()}/package.json`).license
 		if (license) {
 			if (program.license !== license) {
 				warn = true
@@ -39,8 +39,8 @@ if (!program.year) {
 }
 
 if (!program.author) {
-	if (fs.existsSync('./package.json')) {
-		const name = require('./package.json').author
+	if (fs.existsSync(`${process.cwd()}/package.json`)) {
+		const name = require(`${process.cwd()}/package.json`).author
 		if (name) {
 			program.author = name
 		} else {
