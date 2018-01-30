@@ -18,11 +18,11 @@ if (!program.license) {
 			program.license = license
 		}
 	} else {
-		console.log('  no --license [licenseName] was supplied and wasnt in ./package.json, pls do something')
+		console.log('  no --license [licenseName] was provided and wasnt in ./package.json, pls do something')
 		process.exit()
 	}
 } else {
-	// warn if license is supplied
+	// warn if license is provided
 	// but is different from ./package.json
 	if (fs.existsSync('./package.json')) {
 		const license = require('./package.json').license
@@ -44,11 +44,11 @@ if (!program.author) {
 		if (name) {
 			program.author = name
 		} else {
-			console.log('  no --author [name] was supplied and wasnt in ./package.json, pls do something')
+			console.log('  no --author [name] was provided and wasnt in ./package.json, pls do something')
 			process.exit()
 		}
 	} else {
-		console.log('  no --author [name] was supplied and wasnt in ./package.json, pls do something')
+		console.log('  no --author [name] was provided and wasnt in ./package.json, pls do something')
 		process.exit()
 	}
 }
@@ -56,7 +56,7 @@ if (!program.author) {
 const file = `${__dirname}/licenses/${program.license.toLowerCase()}.txt`
 if (fs.existsSync(file)) {
 	if (warn) {
-		console.log('  @WARN license supplied is different from license in ./package.json')
+		console.log('  @WARN license provided is different from license in ./package.json')
 		console.log(`  will still generate the ${program.license.toUpperCase()} license`)
 	}
 	// place year and name into license
