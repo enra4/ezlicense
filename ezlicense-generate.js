@@ -11,17 +11,7 @@ program
 
 let warn = false
 
-if (!program.license) {
-	if (fs.existsSync(`${process.cwd()}/package.json`)) {
-		const license = require(`${process.cwd()}/package.json`).license
-		if (license) {
-			program.license = license
-		}
-	} else {
-		console.log('  no --license [licenseName] was provided and wasnt in ./package.json, pls do something')
-		process.exit()
-	}
-} else {
+if (program.license) {
 	// warn if license is provided
 	// but is different from ./package.json
 	if (fs.existsSync(`${process.cwd()}/package.json`)) {
@@ -31,6 +21,16 @@ if (!program.license) {
 				warn = true
 			}
 		}
+	}
+}
+
+if (!program.license && fs.existsSync(`${process.cwd()}/package.json`)) {
+	const license = require(`${process.cwd()}/package.json`).license
+	if (license) {
+		program.license = license
+	} else {
+		console.log('  no --license [licenseName] was provided and wasnt in ./package.json, pls do something')
+		process.exit()
 	}
 }
 
