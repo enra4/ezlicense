@@ -2,7 +2,7 @@
 const program = require('commander')
 
 program
-	.version('0.0.1', '-v, --version')
+	.version('0.1.3', '-v, --version')
 	.description('easily generate licenses')
 	.command('generate', 'generate a license')
 	.command('list', 'list all licenses available')
