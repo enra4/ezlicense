@@ -34,6 +34,10 @@ if (!program.license && fs.existsSync(`${process.cwd()}/package.json`)) {
 	}
 }
 
+if (!program.license) {
+	process.exit() // in case package.json does not exist
+}
+
 if (!program.year) {
 	program.year = (new Date()).getFullYear()
 }
