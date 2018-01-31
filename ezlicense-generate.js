@@ -35,6 +35,7 @@ if (!program.license && fs.existsSync(`${process.cwd()}/package.json`)) {
 }
 
 if (!program.license) {
+	console.log('  no --license [licenseName] was provided and wasnt in ./package.json, pls do something')
 	process.exit() // in case package.json does not exist
 }
 
